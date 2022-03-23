@@ -13,6 +13,7 @@ phases:
     commands:
       - echo Build started on `date`
       - docker build -t $ECR_REPOSITORY_URI:latest
+      - docker push $ECR_REPOSITORY_URI:latest
   post_build:
     commands:
       - echo Build completed on `date`
