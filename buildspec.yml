@@ -17,4 +17,7 @@ phases:
       - docker push $ECR_REPOSITORY_URI:latest
   post_build:
     commands:
+      - TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "nginx1-TaskDefinition-skYvxUv8xcQZ" --region "us-west-1")
+      - NEW_TASK_DEFINTIION=$(echo $TASK_DEFINITION | jq --arg IMAGE "$ECR_REPOSITORY_URI:latest" '.taskDefinition | .containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn) | del(.revision) | del(.status) | del(.requiresAttributes) | del(.compatibilities)')
+      - aws ecs register-task-definition --region "us-west-1" --cli-input-json "$NEW_TASK_DEFINTIION"
       - echo Build completed on `date`
