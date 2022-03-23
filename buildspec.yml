@@ -12,7 +12,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - docker build -t $ECR_REPOSITORY_URI:latest .
+      - docker build -t nginx1 .
+      - docker tag nginx1:latest $ECR_REPOSITORY_URI:latest
       - docker push $ECR_REPOSITORY_URI:latest
   post_build:
     commands:
