@@ -15,7 +15,7 @@ phases:
       - docker build -t nginx1 .
       - docker tag nginx1:latest $ECR_REPOSITORY_URI:latest
       - docker push $ECR_REPOSITORY_URI:latest
-      - printf '[{"name":"nginx1","imageUri":"%s"}]' "$IMAGE_URI" > imageDetail.json
+      - printf '[{"name":"nginx1","imageUri":"%s"}]' "$ECR_REPOSITORY_URI:latest" > imageDetail.json
 artifacts:
   files:
     - imageDetail.json
